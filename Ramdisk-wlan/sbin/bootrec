@@ -25,8 +25,13 @@ rm /etc
 mkdir /etc
 cp /recovery.fstab /etc/recovery.fstab
 mount /dev/block/mmcblk0p1 /sdcard
+if [ /sys/platform/devices/mddi_toshiba_hvga/display_driver_info ]
+then 
+cp /sbin/base-rec/recovery-synap /sbin/recovery 
+sleep 1
+fi
 /sbin/recovery &
-/sbin/adbd recovery 
+/sbin/adbd recovery
 fi
 
 # overwrite wlan drivers
