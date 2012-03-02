@@ -25,6 +25,15 @@ mount /dev/block/mmcblk0p1 /sdcard
 /sbin/adbd recovery 
 fi
 
+# overwrite wlan drivers
+	cp /sbin/sdio.ko /system/lib/modules
+	cp /sbin/tiwlan_drv.ko /system/lib/modules
+	cp /sbin/tiap_drv.ko /system/lib/modules
+
+#remount system to ro for chargemon
+	mount -o remount,noatime,noauto_da_alloc,nodiratime,barrier=0,nobh,ro /dev/block/mtdblock0 /system
+
+# Run chargemon 
 /system/bin/chargemon
 
 #continue booting
