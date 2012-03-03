@@ -21,7 +21,8 @@ if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
     mkdir /etc
     cp /recovery.fstab /etc/recovery.fstab
     mount /dev/block/mmcblk0p1 /sdcard
-if [ -e /sys/devices/platform/mddi_toshiba_hvga/display_driver_info ]
+inp=`cat /sys/devices/virtual/input/input0/name`
+if [ "$inp" == "synaptics-rmi-touchscreen" ]
   then 
     cp /sbin/base-rec/recovery-synap /sbin/recovery 
     sleep 1
