@@ -21,6 +21,9 @@
 /dev/kgsl-2d1             0666   root       root
 
 # these should not be world writable
+/dev/seport_control       0660   system     system
+/dev/seport_plg_det       0660   system     system
+/dev/seport_btn_det       0660   system     system
 /dev/diag                 0660   radio      radio
 /dev/diag_arm9            0660   radio      radio
 /dev/android_adb          0660   adb        adb
@@ -32,6 +35,7 @@
 /dev/tty0                 0660   root       system
 /dev/graphics/*           0660   root       graphics
 /dev/msm_hw3dm            0660   system     graphics
+/dev/msm_rotator          0660   system     graphics
 /dev/input/*              0660   root       input
 /dev/eac                  0660   root       audio
 /dev/cam                  0660   root       camera
@@ -43,13 +47,7 @@
 /dev/snd/*                0660   system     audio
 /dev/mt9t013              0660   system     system
 /dev/msm_camera/*         0660   system     system
-/dev/akm8976_daemon       0640   compass    system
-/dev/akm8976_aot          0640   compass    system
-/dev/akm8973_daemon       0640   compass    system
-/dev/akm8973_aot          0640   compass    system
 /dev/bma150               0640   compass    system
-/dev/cm3602               0640   compass    system
-/dev/akm8976_pffd         0640   compass    system
 /dev/lightsensor          0640   system     system
 /dev/msm_pcm_out*         0660   system     audio
 /dev/msm_pcm_in*          0660   system     audio
@@ -61,12 +59,12 @@
 /dev/tpa2018d1*           0660   system     audio
 /dev/msm_audpre           0660   system     audio
 /dev/msm_audio_ctl        0660   system     audio
-/dev/htc-acoustic         0660   system     audio
 /dev/vdec                 0660   system     audio
 /dev/q6venc               0660   system     audio
 /dev/snd/dsp              0660   system     audio
 /dev/snd/dsp1             0660   system     audio
 /dev/snd/mixer            0660   system     audio
+/dev/snd/controlC0*       0666   system     audio
 /dev/smd0                 0640   radio      radio
 /dev/qemu_trace           0666   system     system
 /dev/qemu_pipe            0666   system     system
@@ -85,8 +83,5 @@
 # sysfs properties
 /sys/devices/virtual/input/input*   enable      0660  root   input
 /sys/devices/virtual/input/input*   poll_delay  0660  root   input
-
-# video encoder on 720p-enabled 8k targets
-/dev/pmem_venc            0660   system     audio
 
 /sys/devices/virtual/usb_composite/*   enable      0664  root   system

@@ -2,29 +2,29 @@
 
 
 cat /dev/input/event1 > /dev/keycheck&
-sleep 1
+sleep 2
 kill -9 $!
 if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
-then
+  then
 
-rm /cache/recovery/boot
-mount -o remount,rw rootfs /
-umount -l /system
-umount -l /data
-umount -l /cache
-umount -l /mnt/sdcard
-rm -r /sdcard
-rm -r /not/sdcard
-mkdir /sdcard
-mkdir /tmp
-rm /etc
-mkdir /etc
-cp /recovery.fstab /etc/recovery.fstab
-mount /dev/block/mmcblk0p1 /sdcard
-if [ /sys/platform/devices/mddi_toshiba_hvga/display_driver_info ]
-then 
-cp /sbin/base-rec/recovery-synap /sbin/recovery 
-sleep 1
+    rm /cache/recovery/boot
+    mount -o remount,rw rootfs /
+    umount -l /system
+    umount -l /data
+    umount -l /cache
+    umount -l /mnt/sdcard
+    rm -r /sdcard
+    rm -r /not/sdcard
+    mkdir /sdcard
+    mkdir /tmp
+    rm /etc
+    mkdir /etc
+    cp /recovery.fstab /etc/recovery.fstab
+    mount /dev/block/mmcblk0p1 /sdcard
+if [ -e /sys/devices/platform/mddi_toshiba_hvga/display_driver_info ]
+  then 
+    cp /sbin/base-rec/recovery-synap /sbin/recovery 
+    sleep 1
 fi
 /sbin/recovery &
 /sbin/adbd recovery 

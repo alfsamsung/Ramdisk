@@ -46,7 +46,6 @@
 /dev/akm8975_aot          0660   compass    system
 /dev/akm8975_dev          0660   compass    system      
 /dev/bma150               0640   compass    system
-/dev/cm3602               0640   compass    system
 /dev/akm8976_pffd         0640   compass    system
 /dev/lightsensor          0640   system     system
 /dev/msm_pcm_out*         0660   system     audio
@@ -59,7 +58,6 @@
 /dev/tpa2018d1*           0660   system     audio
 /dev/msm_audpre           0660   system     audio
 /dev/msm_audio_ctl        0660   system     audio
-/dev/htc-acoustic         0660   system     audio
 /dev/vdec                 0660   system     audio
 /dev/q6venc               0660   system     audio
 /dev/snd/dsp              0660   system     audio
@@ -99,13 +97,7 @@
 /dev/snd/controlC0*      0666   system      audio
 /dev/amrnb*              0660   system      audio
 /dev/amrwb*              0660   system      audio
-/dev/msm_qcelp*          0660   system      audio
-/dev/evrc*               0660   system      audio
-/dev/msm_voicememo*      0660   system      audio
-/dev/oncrpc/30000000:*   0660   radio       radio
-/dev/oncrpc/30000003:*   0660   radio       radio
-/dev/oncrpc/3000000e:*   0660   radio       radio
-/dev/oncrpc/30000012:*   0660   radio       radio
-/dev/oncrpc/30000016:*   0660   radio       radio
-/dev/oncrpc/30000019:*   0660   radio       radio
-/dev/oncrpc/3000003c:*   0660   radio       radio
+
+
+
+
