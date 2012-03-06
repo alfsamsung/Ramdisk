@@ -36,10 +36,11 @@ fi
 	cp /modules/tiwlan_drv.ko /system/lib/modules
 	cp /modules/tiap_drv.ko /system/lib/modules
 
-#remount system to ro for chargemon
-	mount -o remount,noatime,noauto_da_alloc,nodiratime,barrier=0,nobh,ro /dev/block/mtdblock0 /system
+#remount system to ro for djcharger
+    chown u+s /sbin/djcharger
+    mount -o remount,noatime,noauto_da_alloc,nodiratime,barrier=0,nobh,ro /dev/block/mtdblock0 /system
 
-# Run chargemon 
-/system/bin/chargemon
+# Run djcharger 
+     /sbin/djcharger
 
 #continue booting
