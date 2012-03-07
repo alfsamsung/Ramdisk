@@ -32,6 +32,7 @@ fi
 fi
 
 # link and overwrite wlan drivers
+	ln -s /modules/sdio.ko /system/lib/modules/sdio.ko
 	ln -s /modules/tiwlan_drv.ko /system/lib/modules/tiwlan_drv.ko
 	ln -s /modules/tiap_drv.ko /system/lib/modules/tiap_drv.ko
 
