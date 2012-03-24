@@ -23,23 +23,24 @@ if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
     mount /dev/block/mmcblk0p1 /sdcard
 inp=`cat /sys/devices/virtual/input/input0/name`
 if [ "$inp" == "synaptics-rmi-touchscreen" ]
-  then 
-    cp /sbin/base-rec/recovery-synap /sbin/recovery 
+  then
+    cp /sbin/base-rec/recovery-synap /sbin/recovery
     sleep 1
 fi
 /sbin/recovery &
-/sbin/adbd recovery 
+/sbin/adbd recovery
 fi
 
-# overwrite wlan drivers
-	cp /modules/sdio.ko /system/lib/modules
-	cp /modules/tiwlan_drv.ko /system/lib/modules
-	cp /modules/tiap_drv.ko /system/lib/modules
+# link and overwrite wlan drivers
+	ln -s /modules/sdio.ko /system/lib/modules/sdio.ko
+	ln -s /modules/tiwlan_drv.ko /system/lib/modules/tiwlan_drv.ko
+	ln -s /modules/tiap_drv.ko /system/lib/modules/tiap_drv.ko
 
-#remount system to ro for chargemon
-	mount -o remount,noatime,noauto_da_alloc,nodiratime,barrier=0,nobh,ro /dev/block/mtdblock0 /system
+#remount system to ro for djcharger
+    chown u+s /sbin/djcharger
+    mount -o remount,noatime,noauto_da_alloc,nodiratime,barrier=0,nobh,ro /dev/block/mtdblock0 /system
 
-# Run chargemon 
-/system/bin/chargemon
+# Run djcharger
+     /sbin/djcharger
 
 #continue booting
