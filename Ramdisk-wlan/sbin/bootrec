@@ -2,7 +2,7 @@
 
 
 cat /dev/input/event1 > /dev/keycheck&
-sleep 2
+sleep 1
 kill -9 $!
 if [ -s /dev/keycheck -o -f /data/local/tmp/cwmrecovery ]
   then
@@ -33,9 +33,9 @@ fi
 fi
 
 # overwrite wlan drivers
-	cp /sbin/sdio.ko /system/lib/modules
-	cp /sbin/tiwlan_drv.ko /system/lib/modules
-	cp /sbin/tiap_drv.ko /system/lib/modules
+	ln -s /sbin/sdio.ko /system/lib/modules
+	ln -s /sbin/tiwlan_drv.ko /system/lib/modules
+#	ln -s /sbin/tiap_drv.ko /system/lib/modules
 
 #remount system to ro for chargemon
 	mount -o remount,noatime,noauto_da_alloc,nodiratime,barrier=0,nobh,ro /dev/block/mtdblock0 /system
