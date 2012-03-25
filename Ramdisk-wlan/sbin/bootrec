@@ -33,9 +33,9 @@ fi
 fi
 
 # overwrite wlan drivers
-	ln -s /sbin/sdio.ko /system/lib/modules
-	ln -s /sbin/tiwlan_drv.ko /system/lib/modules
-#	ln -s /sbin/tiap_drv.ko /system/lib/modules
+	ln -s -f /sbin/sdio.ko /system/lib/modules
+	ln -s -f /sbin/tiwlan_drv.ko /system/lib/modules
+#	ln -s -f /sbin/tiap_drv.ko /system/lib/modules
 
 #remount system to ro for chargemon
 	mount -o remount,noatime,noauto_da_alloc,nodiratime,barrier=0,nobh,ro /dev/block/mtdblock0 /system
