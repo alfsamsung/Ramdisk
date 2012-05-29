@@ -19,7 +19,8 @@
 /dev/kgsl-3d0             0666   root       root
 /dev/kgsl-2d0             0666   root       root
 /dev/kgsl-2d1             0666   root       root
-
+/dev/genlock              0666   system     graphics
+ 
 # these should not be world writable
 /dev/seport_control       0660   system     system
 /dev/seport_plg_det       0660   system     system
@@ -45,7 +46,6 @@
 /dev/oncrpc/*             0660   root       system
 /dev/adsp/*               0660   system     audio
 /dev/snd/*                0660   system     audio
-/dev/mt9t013              0660   system     system
 /dev/msm_camera/*         0660   system     system
 /dev/bma150               0640   compass    system
 /dev/lightsensor          0640   system     system
@@ -64,7 +64,6 @@
 /dev/snd/dsp              0660   system     audio
 /dev/snd/dsp1             0660   system     audio
 /dev/snd/mixer            0660   system     audio
-/dev/snd/controlC0*       0666   system     audio
 /dev/smd0                 0640   radio      radio
 /dev/qemu_trace           0666   system     system
 /dev/qemu_pipe            0666   system     system
@@ -79,6 +78,9 @@
 /dev/ts0710mux*           0640   radio      radio
 /dev/ppp                  0660   radio      vpn
 /dev/tun                  0640   vpn        vpn
+
+# video encoder on 720p-enabled 8k targets
+/dev/pmem_venc            0660   system     audio
 
 # sysfs properties
 /sys/devices/virtual/input/input*   enable      0660  root   input
