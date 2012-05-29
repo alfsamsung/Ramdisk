@@ -1,8 +1,7 @@
 #!/sbin/sh
 
-
 cat /dev/input/event1 > /dev/keycheck&
-sleep 2
+sleep 1
 kill -9 $!
 if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
   then
@@ -25,7 +24,6 @@ inp=`cat /sys/devices/virtual/input/input0/name`
 if [ "$inp" == "synaptics-rmi-touchscreen" ]
   then
     cp /sbin/base-rec/recovery-synap /sbin/recovery
-    sleep 1
 fi
 /sbin/recovery &
 /sbin/adbd recovery

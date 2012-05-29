@@ -19,6 +19,16 @@ on boot
     # USB Gadget framework
     chown system system /sys/devices/platform/android_usb/composition
 
+    # allow system to modify ksm control files
+    chown root system /sys/kernel/mm/ksm/pages_to_scan
+    chmod 0664 /sys/kernel/mm/ksm/pages_to_scan
+    chown root system /sys/kernel/mm/ksm/sleep_millisecs
+    chmod 0664 /sys/kernel/mm/ksm/sleep_millisecs
+    chown root system /sys/kernel/mm/ksm/run
+    chmod 0664 /sys/kernel/mm/ksm/run
+    write /sys/kernel/mm/ksm/sleep_millisecs 1200
+    write /sys/kernel/mm/ksm/pages_to_scan 160
+
     #WIFI
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
@@ -32,8 +42,6 @@ on boot
     chown system system /sys/class/power_supply/battery/disable_charging
     chown system system /sys/devices/platform/i2c-adapter/i2c-0/0-0036/br::suspend
     chown system system /sys/devices/platform/i2c-adapter/i2c-0/0-0036/mode
-    chown system system /sys/devices/platform/mddi_hitachi_qvga/power_ctrl
-    chown system system /sys/devices/platform/mddi_samsung_qvga/power_ctrl
     chown system system /sys/devices/platform/mddi_toshiba_hvga/power_ctrl
     chown system system /sys/devices/platform/mddi_hitachi_hvga/power_ctrl
     chown system system /sys/devices/platform/msm_pmic_misc_led.0/control::mode
@@ -49,8 +57,6 @@ on boot
     chmod 0777 /sys/devices/virtual/misc/rgb_led/rgb_led/blink
     chmod 0777 /sys/devices/virtual/misc/rgb_led/rgb_led/power
     chmod 0777 /sys/devices/platform/msm_fb/leds/lcd-backlight/brightness
-    chmod 0777 /sys/devices/platform/msm_pmic_flash_led/cmaflash:enable
-    chmod 0777 /sys/devices/platform/msm_pmic_flash_led/spotlight:enable
     chmod 0777 /sys/devices/platform/i2c-adapter/i2c-0/0-0036/br::intensity
     chmod 0777 /sys/devices/platform/i2c-adapter/i2c-0/0-0036/mode
     chmod 0777 /sys/devices/platform/msm_pmic_misc_led.0/brightness
@@ -73,6 +79,10 @@ on property:init.svc.bluetoothd=running
     write /sys/devices/virtual/bluetooth/hci0/link_supervision_timeout 6400
     write /sys/devices/virtual/bluetooth/hci0/idle_timeout 7000
 
+# Wakelock debug
+    chmod 0666 /sys/module/wakelock/parameters/debug_mask
+    write /sys/module/wakelock/parameters/debug_mask 7
+    
 # Enabled port-bridge for 'eng' builds
 service qmuxd /system/bin/qmuxd &
 
@@ -123,16 +133,8 @@ service dhcpcd /system/bin/dhcpcd -BKL -d tiwlan0
     disabled
     oneshot
 
-# Needed for touch support
-service inputattach /system/bin/inputattach -cypress /dev/ttyHS1
-
-# Needed for slidercounter
-service slidercounter /system/bin/slidercounter mimmi_keypad
-
-# Check touch FW
-service ts_fw_update /system/bin/sh /system/etc/ts_fw_update.sh
-    user root
-    oneshot
+on property:init.svc.wpa_supplicant=stopped
+    stop dhcpcd_wlan0
 
 service wlan_ap_loader /system/bin/tiap_loader.sh
     disabled

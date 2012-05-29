@@ -19,8 +19,12 @@
 /dev/kgsl-3d0             0666   root       root
 /dev/kgsl-2d0             0666   root       root
 /dev/kgsl-2d1             0666   root       root
-
+/dev/genlock              0666   system     graphics
+ 
 # these should not be world writable
+/dev/seport_control       0660   system     system
+/dev/seport_plg_det       0660   system     system
+/dev/seport_btn_det       0660   system     system
 /dev/diag                 0660   radio      radio
 /dev/diag_arm9            0660   radio      radio
 /dev/android_adb          0660   adb        adb
@@ -32,6 +36,7 @@
 /dev/tty0                 0660   root       system
 /dev/graphics/*           0660   root       graphics
 /dev/msm_hw3dm            0660   system     graphics
+/dev/msm_rotator          0660   system     graphics
 /dev/input/*              0660   root       input
 /dev/eac                  0660   root       audio
 /dev/cam                  0660   root       camera
@@ -41,12 +46,8 @@
 /dev/oncrpc/*             0660   root       system
 /dev/adsp/*               0660   system     audio
 /dev/snd/*                0660   system     audio
-/dev/mt9t013              0660   system     system
 /dev/msm_camera/*         0660   system     system
-/dev/akm8975_aot          0660   compass    system
-/dev/akm8975_dev          0660   compass    system      
 /dev/bma150               0640   compass    system
-/dev/akm8976_pffd         0640   compass    system
 /dev/lightsensor          0640   system     system
 /dev/msm_pcm_out*         0660   system     audio
 /dev/msm_pcm_in*          0660   system     audio
@@ -63,6 +64,7 @@
 /dev/snd/dsp              0660   system     audio
 /dev/snd/dsp1             0660   system     audio
 /dev/snd/mixer            0660   system     audio
+/dev/snd/controlC0*       0666   system     audio
 /dev/smd0                 0640   radio      radio
 /dev/qemu_trace           0666   system     system
 /dev/qemu_pipe            0666   system     system
@@ -78,26 +80,11 @@
 /dev/ppp                  0660   radio      vpn
 /dev/tun                  0640   vpn        vpn
 
+# video encoder on 720p-enabled 8k targets
+/dev/pmem_venc            0660   system     audio
+
 # sysfs properties
 /sys/devices/virtual/input/input*   enable      0660  root   input
 /sys/devices/virtual/input/input*   poll_delay  0660  root   input
 
-# video encoder on 720p-enabled 8k targets
-/dev/pmem_venc            0660   system     audio
-
 /sys/devices/virtual/usb_composite/*   enable      0664  root   system
-
-#shakira
-/dev/seport_control      0660   system      system 
-/dev/seport_plg_det      0660   system      system 
-/dev/seport_btn_det      0660   system      system 
-/dev/msm_rotator         0660   system      graphics
-/dev/pmem_gpu*           0666   system      graphics
-/dev/msm_pcm_dec*        0666   system      audio
-/dev/snd/controlC0*      0666   system      audio
-/dev/amrnb*              0660   system      audio
-/dev/amrwb*              0660   system      audio
-
-
-
-
