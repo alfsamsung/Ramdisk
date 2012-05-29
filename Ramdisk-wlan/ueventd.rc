@@ -64,6 +64,7 @@
 /dev/snd/dsp              0660   system     audio
 /dev/snd/dsp1             0660   system     audio
 /dev/snd/mixer            0660   system     audio
+/dev/snd/controlC0*       0666   system     audio
 /dev/smd0                 0640   radio      radio
 /dev/qemu_trace           0666   system     system
 /dev/qemu_pipe            0666   system     system
