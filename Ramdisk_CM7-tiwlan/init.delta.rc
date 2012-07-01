@@ -40,8 +40,8 @@ on boot
     chmod 0771 /data/misc/wifi
 
     chown system system /sys/class/power_supply/battery/disable_charging
-    chown system system /sys/devices/platform/i2c-adapter/i2c-0/0-0036/br::suspend
-    chown system system /sys/devices/platform/i2c-adapter/i2c-0/0-0036/mode
+    chown system system /sys/devices/i2c-0/0-0036/br::suspend
+    chown system system /sys/devices/i2c-0/0-0036/mode
     chown system system /sys/devices/platform/mddi_toshiba_hvga/power_ctrl
     chown system system /sys/devices/platform/mddi_hitachi_hvga/power_ctrl
     chown system system /sys/devices/platform/msm_pmic_misc_led.0/control::mode
@@ -57,8 +57,8 @@ on boot
     chmod 0777 /sys/devices/virtual/misc/rgb_led/rgb_led/blink
     chmod 0777 /sys/devices/virtual/misc/rgb_led/rgb_led/power
     chmod 0777 /sys/devices/platform/msm_fb/leds/lcd-backlight/brightness
-    chmod 0777 /sys/devices/platform/i2c-adapter/i2c-0/0-0036/br::intensity
-    chmod 0777 /sys/devices/platform/i2c-adapter/i2c-0/0-0036/mode
+    #chmod 0777 /sys/devices/i2c-0/0-0036/br::intensity
+    #chmod 0777 /sys/devices/i2c-0/0-0036/mode
     chmod 0777 /sys/devices/platform/msm_pmic_misc_led.0/brightness
 
 #needed for ril
