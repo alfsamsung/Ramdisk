@@ -118,20 +118,20 @@ on post-fs
     # Do this before we mount cache so eventually we can use cache for
     # storing dumps on platforms which do not have a dedicated dump partition.
    
-    mkdir /data/dontpanic
-    chown root log /data/dontpanic
-    chmod 0750 /data/dontpanic
+    #mkdir /data/dontpanic
+    #chown root log /data/dontpanic
+    #chmod 0750 /data/dontpanic
 
     # Collect apanic data, free resources and re-arm trigger
-    copy /proc/apanic_console /data/dontpanic/apanic_console
-    chown root log /data/dontpanic/apanic_console
-    chmod 0640 /data/dontpanic/apanic_console
+    #copy /proc/apanic_console /data/dontpanic/apanic_console
+    #chown root log /data/dontpanic/apanic_console
+    #chmod 0640 /data/dontpanic/apanic_console
 
-    copy /proc/apanic_threads /data/dontpanic/apanic_threads
-    chown root log /data/dontpanic/apanic_threads
-    chmod 0640 /data/dontpanic/apanic_threads
+    #copy /proc/apanic_threads /data/dontpanic/apanic_threads
+    #chown root log /data/dontpanic/apanic_threads
+    #chmod 0640 /data/dontpanic/apanic_threads
 
-    write /proc/apanic_console 1
+    #write /proc/apanic_console 1
 
     # Same reason as /data above
     chown system cache /cache
