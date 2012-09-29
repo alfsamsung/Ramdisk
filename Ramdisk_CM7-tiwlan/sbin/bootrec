@@ -20,6 +20,7 @@ if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
     mkdir /etc
     cp /recovery.fstab /etc/recovery.fstab
     mount /dev/block/mmcblk0p1 /sdcard
+    cp /sbin/aromafm.zip /tmp/aromafm.zip
     inp=`cat /sys/devices/virtual/input/input0/name`
 	if [ "$inp" == "synaptics-rmi-touchscreen" ]
 	  then
