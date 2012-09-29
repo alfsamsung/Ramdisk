@@ -20,19 +20,22 @@ if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
     mkdir /etc
     cp /recovery.fstab /etc/recovery.fstab
     mount /dev/block/mmcblk0p1 /sdcard
-inp=`cat /sys/devices/virtual/input/input0/name`
-if [ "$inp" == "synaptics-rmi-touchscreen" ]
-  then
-    cp /sbin/base-rec/recovery-synap /sbin/recovery
-fi
+    inp=`cat /sys/devices/virtual/input/input0/name`
+	if [ "$inp" == "synaptics-rmi-touchscreen" ]
+	  then
+	    cp /sbin/base-rec/recovery-synap /sbin/recovery
+	fi
 /sbin/recovery &
 /sbin/adbd recovery
 fi
 
 # link and overwrite wlan drivers
-	ln -s -f /modules/sdio.ko /system/lib/modules/sdio.ko
-	ln -s -f /modules/tiwlan_drv.ko /system/lib/modules/tiwlan_drv.ko
-	ln -s -f /modules/tiap_drv.ko /system/lib/modules/tiap_drv.ko
+#ln -s -f /modules /system/lib/
+    if [ ! -f /system/lib/modules/alfs-modules-9b ]
+	then
+	  rm -f -r /system/lib/modules
+	  ln -s /modules /system/lib/
+    fi
 
 #remount system to ro for djcharger
     chown u+s /sbin/djcharger
