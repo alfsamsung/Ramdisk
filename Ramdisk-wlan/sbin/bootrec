@@ -5,7 +5,6 @@ sleep 1
 kill -9 $!
 if [ -s /dev/keycheck -o -f /data/local/tmp/cwmrecovery ]
   then
-
     rm /cache/recovery/boot
     rm -f /data/local/tmp/cwmrecovery
     mount -o remount,rw rootfs /
@@ -21,24 +20,33 @@ if [ -s /dev/keycheck -o -f /data/local/tmp/cwmrecovery ]
     mkdir /etc
     cp /recovery.fstab /etc/recovery.fstab
     mount /dev/block/mmcblk0p1 /sdcard
-inp=`cat /sys/devices/virtual/input/input0/name`
-if [ "$inp" == "synaptics-rmi-touchscreen" ]
-  then 
-    cp /sbin/base-rec/recovery-synap /sbin/recovery 
-fi
+#aroma file manager support
+    cp /sdcard/aromafm.zip /tmp/aromafm.zip
+#copy the correct recovery for touchscreen
+    inp=`cat /sys/devices/virtual/input/input0/name`
+	if [ "$inp" == "synaptics-rmi-touchscreen" ]
+	  then 
+	  cp /sbin/base-rec/recovery-synap /sbin/recovery 
+	fi
 /sbin/recovery &
 /sbin/adbd recovery
 fi
 
 # overwrite wlan drivers
+    #make sure the modules folder exist
+    if [ ! -d /system/lib/modules ]
+	then
+	mkdir /system/lib/modules
+    fi
 	ln -s -f /sbin/sdio.ko /system/lib/modules
 	ln -s -f /sbin/tiwlan_drv.ko /system/lib/modules
 #	ln -s -f /sbin/tiap_drv.ko /system/lib/modules
 
-#remount system to ro for chargemon
+#remount system to ro for charger
+	chmod u+s /system/bin/charger
 	mount -o remount,noatime,noauto_da_alloc,nodiratime,barrier=0,nobh,ro /dev/block/mtdblock0 /system
 
-# Run chargemon 
-	/system/bin/chargemon
+# Run charger (why did we go through chargemon)
+	/system/bin/charger
 
 #continue booting

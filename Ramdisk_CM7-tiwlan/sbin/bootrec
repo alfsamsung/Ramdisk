@@ -5,7 +5,6 @@ sleep 1
 kill -9 $!
 if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
   then
-
     rm /cache/recovery/boot
     mount -o remount,rw rootfs /
     umount -l /system
@@ -20,11 +19,13 @@ if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
     mkdir /etc
     cp /recovery.fstab /etc/recovery.fstab
     mount /dev/block/mmcblk0p1 /sdcard
-    cp /sbin/aromafm.zip /tmp/aromafm.zip
+#aroma file manager support
+    cp /sdcard/aromafm.zip /tmp/aromafm.zip
+#copy the correct recovery for touchscreen
     inp=`cat /sys/devices/virtual/input/input0/name`
 	if [ "$inp" == "synaptics-rmi-touchscreen" ]
 	  then
-	    cp /sbin/base-rec/recovery-synap /sbin/recovery
+	  cp /sbin/base-rec/recovery-synap /sbin/recovery
 	fi
 /sbin/recovery &
 /sbin/adbd recovery
