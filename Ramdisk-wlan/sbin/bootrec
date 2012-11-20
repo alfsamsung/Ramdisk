@@ -1,5 +1,6 @@
 #!/sbin/sh
 
+####RECOVERY
 cat /dev/input/event1 > /dev/keycheck&
 sleep 1
 kill -9 $!
@@ -32,21 +33,23 @@ if [ -s /dev/keycheck -o -f /data/local/tmp/cwmrecovery ]
 /sbin/adbd recovery
 fi
 
-# overwrite wlan drivers
-    #make sure the modules folder exist
-    if [ ! -d /system/lib/modules ]
+####MODULES link and overwrite wlan drivers and modules
+    #make sure the modules folder exist and that it's correct version
+     ver=`basename /modules/alfs-modules-*`
+     if [ ! -f /system/lib/modules/$ver ]
 	then
-	mkdir /system/lib/modules
+	  rm -rf /system/lib/modules
+	  mkdir -p /system/lib/modules
+	  ln -s -f /modules/*.ko /system/lib/modules
+	  ln -s -f /modules/alfs-modules-* /system/lib/modules
     fi
-	ln -s -f /sbin/sdio.ko /system/lib/modules
-	ln -s -f /sbin/tiwlan_drv.ko /system/lib/modules
-#	ln -s -f /sbin/tiap_drv.ko /system/lib/modules
 
-#remount system to ro for charger
+####CHARGER
+    #remount system to ro for charger
 	chmod u+s /system/bin/charger
 	mount -o remount,noatime,noauto_da_alloc,nodiratime,barrier=0,nobh,ro /dev/block/mtdblock0 /system
 
-# Run charger (why did we go through chargemon)
+    # Run charger (why did we go through chargemon)
 	/system/bin/charger
 
-#continue booting
+#END-continue booting

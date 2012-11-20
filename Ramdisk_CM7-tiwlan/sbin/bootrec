@@ -1,5 +1,6 @@
 #!/sbin/sh
 
+####RECOVERY
 cat /dev/input/event1 > /dev/keycheck&
 sleep 1
 kill -9 $!
@@ -31,19 +32,23 @@ if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
 /sbin/adbd recovery
 fi
 
-# link and overwrite wlan drivers
-#ln -s -f /modules /system/lib/
-    if [ ! -f /system/lib/modules/alfs-modules-9b ]
+####MODULES link and overwrite wlan drivers and modules
+    #make sure the modules folder exist and that it's correct version
+     ver=`basename /modules/alfs-modules-*`
+     if [ ! -f /system/lib/modules/$ver ]
 	then
-	  rm -f -r /system/lib/modules
-	  ln -s /modules /system/lib/
+	  rm -rf /system/lib/modules
+	  mkdir -p /system/lib/modules
+	  ln -s -f /modules/*.ko /system/lib/modules
+	  ln -s -f /modules/alfs-modules-* /system/lib/modules
     fi
 
-#remount system to ro for djcharger
-    chown u+s /sbin/djcharger
-    mount -o remount,noatime,noauto_da_alloc,nodiratime,barrier=0,nobh,ro /dev/block/mtdblock0 /system
+####CHARGER
+    #remount system to ro for djcharger
+	chown u+s /sbin/djcharger
+	mount -o remount,noatime,noauto_da_alloc,nodiratime,barrier=0,nobh,ro /dev/block/mtdblock0 /system
 
-# Run djcharger
-     /sbin/djcharger
+    # Run djcharger
+	/sbin/djcharger
 
-#continue booting
+#END-continue booting
