@@ -80,8 +80,8 @@ on property:init.svc.bluetoothd=running
     write /sys/devices/virtual/bluetooth/hci0/idle_timeout 7000
 
 # Wakelock debug
-    chmod 0666 /sys/module/wakelock/parameters/debug_mask
-    write /sys/module/wakelock/parameters/debug_mask 7
+#    chmod 0666 /sys/module/wakelock/parameters/debug_mask
+#    write /sys/module/wakelock/parameters/debug_mask 7
     
 # Enabled port-bridge for 'eng' builds
 service qmuxd /system/bin/qmuxd &
