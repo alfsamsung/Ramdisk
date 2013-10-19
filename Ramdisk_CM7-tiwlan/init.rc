@@ -204,6 +204,10 @@ on post-fs
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
+    # create data/drm directory
+    mkdir /data/drm 0774 drm drm
+    chown drm drm /data/drm
+    chmod 0774 /data/drm
 on boot
 # basic network init
     ifup lo
@@ -375,6 +379,10 @@ service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-sys
     onrestart write /sys/power/state on
     onrestart restart media
     onrestart restart netd
+
+service drm /system/bin/drmserver
+    user drm
+    group system root inet
 
 service media /system/bin/mediaserver
     user media
